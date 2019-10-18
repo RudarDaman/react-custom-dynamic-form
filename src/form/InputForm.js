@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import Input from './form-element/Input';
+import {
+    Form,
+    FormGroup,
+    Button,
+    Row
+} from "reactstrap";
 
-export default class Form extends Component {
+export default class InputForm extends Component {
 
     languageData = [
         { name: 'React' },
@@ -194,7 +200,7 @@ export default class Form extends Component {
         }
 
         newFormInputsData['date'] = this.getDateWithFormat() + ' ' + this.getCurrentTime();
-        
+
         // Axios call to submit data to API route
         // axios.post('API URL', newFormInputsData);
     }
@@ -210,10 +216,10 @@ export default class Form extends Component {
         }
 
         let inputFormsData = (
-            <form onSubmit={this.submitHandler}>
-                <div>
+            <Form className="form-container" onSubmit={this.submitHandler}>
+                <Row>
                     {formElementsArray.map(formElement => (
-                        <div sm={formElement.config.class} key={formElement.id}>
+                        <div key={formElement.id}>
                             <Input
                                 elementType={formElement.config.elementType}
                                 elementConfig={formElement.config.elementConfig}
@@ -225,13 +231,13 @@ export default class Form extends Component {
                                 changed={(event) => this.inputChangeHandler(event, formElement.id)} />
                         </div>
                     ))}
-                </div>
-                <div>
-                    <button color="primary" disabled={!this.state.formIsValid}>
+                </Row>
+                <FormGroup className="text-center">
+                    <Button color="primary" className="btn-lg mt-3" disabled={!this.state.formIsValid}>
                         Submit
-                    </button>
-                </div>
-            </form>
+                    </Button>
+                </FormGroup>
+            </Form>
         );
 
         if (this.state.loading) {
